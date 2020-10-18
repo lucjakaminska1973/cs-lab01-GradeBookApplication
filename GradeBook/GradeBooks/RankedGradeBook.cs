@@ -39,26 +39,36 @@ namespace GradeBook.GradeBooks
             }
         }
 
-        public virtual char GetLetterGrade(double averageGrade)
+        public override char GetLetterGrade(double averageGrade)
         {
             if (Students.Count < 5)
             {
                 throw new InvalidOperationException();
             }
-            else 
+            int part = 1;
+            int count = 0;
+            while (count != Students.Count)
             {
-                if (averageGrade >= 90)
-                    return 'A';
-                else if (averageGrade >= 80)
-                    return 'B';
-                else if (averageGrade >= 70)
-                    return 'C';
-                else if (averageGrade >= 60)
-                    return 'D';
+                double studentGrade = Students[count].Grades[0];
+                {
+                    switch (part)
+                    {
+                        case 1:
+                            return 'A';
+                        case 2:
+                            return 'B';
+                        case 3:
+                            return 'C';
+                        case 4:
+                            return 'D';
+                        case 5:
+                            return 'F';
+                    }
+                }
+                part++;
+                count++;
             }
-            else
-                return 'F';
-
+            return '0';
         }
     }
 }
