@@ -15,8 +15,8 @@ namespace GradeBook.GradeBooks
         public override void CalculateStatistics()
         {
             //string students1 = Convert.ToString(Students);
-            int result1 = Students.Count;
-            if (result1 < 5)
+            int result = Students.Count;
+            if (result < 5)
             {
                 Console.WriteLine("Ranked grading requires at least 5 students.");
             }
@@ -28,8 +28,8 @@ namespace GradeBook.GradeBooks
         public override void CalculateStudentStatistics(string name)
         {
             //string students1 = Convert.ToString(Students);
-            int result1 = Students.Count;
-            if (result1 < 5)
+            int result = Students.Count;
+            if (result < 5)
             {
                 Console.WriteLine("Ranked grading requires at least 5 students.");
             }
@@ -45,30 +45,52 @@ namespace GradeBook.GradeBooks
             {
                 throw new InvalidOperationException();
             }
-            int part = 1;
-            int count = 0;
-            while (count != Students.Count)
+
+            int i = -1;
+            double count = 0;
+            double range = (double)Students.Count * 20;
+
+            foreach (var student in Students)
             {
-                double studentGrade = Students[count].Grades[0];
+                if ((double)student.AverageGrade >= averageGrade)
                 {
-                    switch (part)
+                    count ++;
+                    
+                }
+            }
+            count *= 100;
+            
+            //double part = (count / range);
+            do
+            {
+               i++;
+            } while (i * range < count  && i <= 5);
+
+                char studentGrade = 'F';    
+                //double studentGrade = Students[count].Grades[0];
+                
+                    switch (i)
                     {
                         case 1:
-                            return 'A';
+                            studentGrade = 'A';
+                            break;
                         case 2:
-                            return 'B';
+                            studentGrade = 'B';
+                            break;
                         case 3:
-                            return 'C';
+                            studentGrade = 'C';
+                            break;
                         case 4:
-                            return 'D';
+                            studentGrade = 'D';
+                            break;
                         case 5:
-                            return 'F';
+                            studentGrade = 'F';
+                            break;
+                        
                     }
-                }
-                part++;
-                count++;
-            }
-            return '0';
+
+
+            return studentGrade;
         }
     }
 }
